@@ -12,7 +12,7 @@ const PostList = () => {
     <>
       {postList.map((post) => (
         // eslint-disable-next-line react/jsx-key
-        <Post key={post.id} />
+        <Post key={post.id} post={post} />
       ))}
     </>
   );
