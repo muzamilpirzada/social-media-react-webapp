@@ -7,7 +7,7 @@ import { PostList as PostlistData } from "../store/post-list-store";
 const PostList = () => {
   // we want only postlist value from PostlistData
   const { postList } = useContext(PostlistData);
-  console.log(postList[1].id)
+  // console.log(postList[1].id)
   return (
     <>
       {postList.map((post) => (

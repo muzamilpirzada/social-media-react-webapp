@@ -10,25 +10,40 @@ export const PostList = createContext({
 });
 
 const postListReducer = (currPostList, action) => {
-  return currPostList;
+  let newPostList = currPostList;
+  if (action.type === "DELETE_POST") {
+    newPostList = currPostList.filter(
+      (post) => post.id !== action.payload.postId
+    );
+  }
+  return newPostList;
 };
 //   this is a component that takes chilfren as a props and it retrun PostList.Provider
 // eslint-disable-next-line no-unused-vars
 const PostListProvider = ({ children }) => {
-  const addPost = () => {};
-  const deletePost = () => {};
-
   const [postList, dispatchPostList] = useReducer(
     postListReducer,
     DEFAULT_POST_LIST
   );
+  const addPost = () => {};
+
+  const deletePost = (postId) => {
+    dispatchPostList({
+      type: "DELETE_POST",
+      payload: {
+        postId,
+      },
+    });
+  };
+
+ 
 
   return (
     <PostList.Provider
       value={{
-        postList: postList,
-        addPost: addPost,
-        deletePost: deletePost,
+        postList,
+        addPost,
+        deletePost,
       }}
     >
       {children}
@@ -49,7 +64,7 @@ const DEFAULT_POST_LIST = [
     id: "10",
     title: "Going to hyderbad",
     body: "Hi Frirend, Iam going to hyderabad for some days",
-    reaction: 2,
+    reaction: 6,
     userId: "user-10",
     tags: ["vacation", "Mumbai", "Enjoying"],
   },
